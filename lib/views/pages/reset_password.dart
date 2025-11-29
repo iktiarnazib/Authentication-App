@@ -71,7 +71,33 @@ class _ResetPasswordState extends State<ResetPassword> {
             ),
             SizedBox(height: 10.0),
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog.adaptive(
+                      title: Text("Password reset confirmation"),
+                      content: Text("Password has been resetted successfully"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return WidgetTree();
+                                },
+                              ),
+                            );
+                          },
+                          child: Text("Close"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
 
               style: FilledButton.styleFrom(
                 minimumSize: Size(double.infinity, 40.0),
