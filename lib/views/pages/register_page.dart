@@ -1,24 +1,25 @@
-import 'package:authapp/main.dart';
 import 'package:authapp/views/pages/home_page.dart';
-import 'package:authapp/views/pages/register_page.dart';
-import 'package:authapp/views/pages/reset_password.dart';
+import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
 
-class WidgetTree extends StatelessWidget {
-  WidgetTree({super.key});
+class RegisterPage extends StatefulWidget {
+  RegisterPage({super.key});
 
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController controller2 = TextEditingController();
+  TextEditingController controller3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Authentication App",
+          "Register your account",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
-        leading: Icon(Icons.lock, color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,7 +27,7 @@ class WidgetTree extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Login",
+              "Register",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40.0,
@@ -35,7 +36,7 @@ class WidgetTree extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller,
+              controller: controller2,
               decoration: InputDecoration(
                 hintText: "Iktiarnazib@gmail.com",
                 hintStyle: TextStyle(color: Colors.white30),
@@ -47,7 +48,7 @@ class WidgetTree extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller1,
+              controller: controller3,
               decoration: InputDecoration(
                 hintText: "Password",
                 hintStyle: TextStyle(color: Colors.white30),
@@ -71,23 +72,6 @@ class WidgetTree extends StatelessWidget {
               style: FilledButton.styleFrom(
                 minimumSize: Size(double.infinity, 40.0),
               ),
-              child: Text("Login"),
-            ),
-
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return RegisterPage();
-                    },
-                  ),
-                );
-              },
-              style: FilledButton.styleFrom(
-                minimumSize: Size(double.infinity, 40.0),
-              ),
               child: Text("Register"),
             ),
 
@@ -97,12 +81,12 @@ class WidgetTree extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ResetPassword();
+                      return WidgetTree();
                     },
                   ),
                 );
               },
-              child: Text("Forgot Password? Reset here"),
+              child: Text("Already have an account? Login"),
             ),
           ],
         ),

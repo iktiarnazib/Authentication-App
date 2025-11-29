@@ -13,28 +13,31 @@ class HomePage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
 
-          children: [
-            Text("Authenticated", style: TextStyle(fontSize: 20.0)),
-            SizedBox(height: 5.0),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return WidgetTree();
-                    },
-                  ),
-                );
-              },
-              child: Text("Log out"),
-            ),
-          ],
+            children: [
+              Text("Authenticated", style: TextStyle(fontSize: 20.0)),
+              SizedBox(height: 5.0),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WidgetTree();
+                      },
+                    ),
+                  );
+                },
+                child: Text("Log out"),
+              ),
+            ],
+          ),
         ),
       ),
     );

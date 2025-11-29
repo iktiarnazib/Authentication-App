@@ -1,24 +1,26 @@
-import 'package:authapp/main.dart';
 import 'package:authapp/views/pages/home_page.dart';
-import 'package:authapp/views/pages/register_page.dart';
-import 'package:authapp/views/pages/reset_password.dart';
+import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
 
-class WidgetTree extends StatelessWidget {
-  WidgetTree({super.key});
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({super.key});
 
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
+  @override
+  State<ResetPassword> createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerCurrentPass = TextEditingController();
+  TextEditingController controllernewPass = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Authentication App",
+          "Password reset page",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
-        leading: Icon(Icons.lock, color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,7 +28,7 @@ class WidgetTree extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Login",
+              "Reset Password",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40.0,
@@ -35,9 +37,9 @@ class WidgetTree extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller,
+              controller: controllerEmail,
               decoration: InputDecoration(
-                hintText: "Iktiarnazib@gmail.com",
+                hintText: "Email",
                 hintStyle: TextStyle(color: Colors.white30),
 
                 border: OutlineInputBorder(
@@ -47,9 +49,20 @@ class WidgetTree extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller1,
+              controller: controllerCurrentPass,
               decoration: InputDecoration(
-                hintText: "Password",
+                hintText: "Current Password",
+                hintStyle: TextStyle(color: Colors.white30),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            TextField(
+              controller: controllernewPass,
+              decoration: InputDecoration(
+                hintText: "New Password",
                 hintStyle: TextStyle(color: Colors.white30),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -58,37 +71,12 @@ class WidgetTree extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             FilledButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
-                    },
-                  ),
-                );
-              },
-              style: FilledButton.styleFrom(
-                minimumSize: Size(double.infinity, 40.0),
-              ),
-              child: Text("Login"),
-            ),
+              onPressed: () {},
 
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return RegisterPage();
-                    },
-                  ),
-                );
-              },
               style: FilledButton.styleFrom(
                 minimumSize: Size(double.infinity, 40.0),
               ),
-              child: Text("Register"),
+              child: Text("Reset Password"),
             ),
 
             TextButton(
@@ -97,12 +85,12 @@ class WidgetTree extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ResetPassword();
+                      return WidgetTree();
                     },
                   ),
                 );
               },
-              child: Text("Forgot Password? Reset here"),
+              child: Text("Go back to login page"),
             ),
           ],
         ),
