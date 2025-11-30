@@ -1,5 +1,6 @@
 import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,12 +19,22 @@ class HomePage extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
-              Text("Authenticated", style: TextStyle(fontSize: 20.0)),
+              Lottie.asset("assets/lotties/Home.json", height: 400.0),
+              Text("Authenticated", style: TextStyle(fontSize: 40.0)),
+              Text(
+                "Home page in development",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(height: 5.0),
               OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40.0),
+                ),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
@@ -34,6 +45,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
+
                 child: Text("Log out"),
               ),
             ],

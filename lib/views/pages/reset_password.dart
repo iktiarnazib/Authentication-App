@@ -1,6 +1,7 @@
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -27,6 +28,11 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 300.0,
+              child: Lottie.asset("assets/lotties/ForgotPassword.json"),
+            ),
+            SizedBox(height: 20.0),
             Text(
               "Reset Password",
               style: TextStyle(

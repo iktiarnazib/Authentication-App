@@ -1,6 +1,7 @@
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -26,6 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Lottie.asset("assets/lotties/register.json", repeat: false),
             Text(
               "Register",
               style: TextStyle(
