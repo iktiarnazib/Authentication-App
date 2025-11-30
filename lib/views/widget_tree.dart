@@ -37,7 +37,7 @@ class WidgetTree extends StatelessWidget {
             TextField(
               controller: controller,
               decoration: InputDecoration(
-                hintText: "Iktiarnazib@gmail.com",
+                hintText: "Email",
                 hintStyle: TextStyle(color: Colors.white30),
 
                 border: OutlineInputBorder(
