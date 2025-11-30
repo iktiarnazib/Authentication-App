@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
               Lottie.asset("assets/lotties/Home.json", height: 400.0),
               Text("Authenticated", style: TextStyle(fontSize: 40.0)),
               Text(
-                "Home page in development",
+                "Home page is under development",
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.blue,
