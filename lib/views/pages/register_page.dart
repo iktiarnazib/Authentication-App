@@ -1,5 +1,7 @@
+import 'package:authapp/app/mobile/auth_service.dart';
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/widget_tree.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,8 +13,30 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
+  String errorMessage = "";
+  TextEditingController rcontrollerEmail = TextEditingController();
+  TextEditingController rcontrollerPass = TextEditingController();
+  void register() async {
+    try {
+      await authService.value.createAccount(
+        email: rcontrollerEmail.text.trim(),
+        password: rcontrollerPass.text.trim(),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePage();
+          },
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message ?? "There is an error";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +62,9 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller2,
+              controller: rcontrollerEmail,
               decoration: InputDecoration(
-                hintText: "Iktiarnazib@gmail.com",
+                hintText: "Email",
                 hintStyle: TextStyle(color: Colors.white30),
 
                 border: OutlineInputBorder(
@@ -50,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             SizedBox(height: 20.0),
             TextField(
-              controller: controller3,
+              controller: rcontrollerPass,
               decoration: InputDecoration(
                 hintText: "Password",
                 hintStyle: TextStyle(color: Colors.white30),
@@ -59,17 +83,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10.0),
+
+            Text(errorMessage, style: TextStyle(color: Colors.red)),
             FilledButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
-                    },
-                  ),
-                );
+                register();
               },
               style: FilledButton.styleFrom(
                 minimumSize: Size(double.infinity, 40.0),
