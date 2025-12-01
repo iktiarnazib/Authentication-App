@@ -1,5 +1,7 @@
+import 'package:authapp/app/mobile/auth_service.dart';
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/widget_tree.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,8 +14,43 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerCurrentPass = TextEditingController();
-  TextEditingController controllernewPass = TextEditingController();
+  String errorMessage = '';
+  void resetPassword() async {
+    try {
+      await authService.value.resetPassword(email: controllerEmail.text);
+      errorMessage = "";
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog.adaptive(
+            title: Text("Password reset confirmation"),
+            content: Text("Password has been resetted successfully"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WidgetTree();
+                      },
+                    ),
+                  );
+                },
+                child: Text("Close"),
+              ),
+            ],
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message ?? "There is an error";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,62 +84,15 @@ class _ResetPasswordState extends State<ResetPassword> {
               decoration: InputDecoration(
                 hintText: "Email",
                 hintStyle: TextStyle(color: Colors.white30),
-
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: controllerCurrentPass,
-              decoration: InputDecoration(
-                hintText: "Current Password",
-                hintStyle: TextStyle(color: Colors.white30),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: controllernewPass,
-              decoration: InputDecoration(
-                hintText: "New Password",
-                hintStyle: TextStyle(color: Colors.white30),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 10.0),
+            Text(errorMessage, style: TextStyle(color: Colors.red)),
             FilledButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog.adaptive(
-                      title: Text("Password reset confirmation"),
-                      content: Text("Password has been resetted successfully"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return WidgetTree();
-                                },
-                              ),
-                            );
-                          },
-                          child: Text("Close"),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                resetPassword();
               },
 
               style: FilledButton.styleFrom(
@@ -122,7 +112,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                 );
               },
-              child: Text("Go back to login page"),
+              child: Text("Go back to Login page"),
             ),
           ],
         ),
