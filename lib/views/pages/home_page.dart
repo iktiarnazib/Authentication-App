@@ -1,9 +1,18 @@
+import 'package:authapp/data/notifiers.dart';
+import 'package:authapp/views/pages/profile_page.dart';
 import 'package:authapp/views/widget_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -13,44 +22,69 @@ class HomePage extends StatelessWidget {
           "Inside the app",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Lottie.asset("assets/lotties/Home.json", height: 400.0),
-              Text("Authenticated", style: TextStyle(fontSize: 40.0)),
-              Text(
-                "Home page is under development",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5.0),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 40.0),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return WidgetTree();
-                      },
-                    ),
-                  );
-                },
+      body: ValueListenableBuilder(
+        valueListenable: selectedPageNotifier,
+        builder: (BuildContext context, dynamic selectedPage, Widget? child) {
+          return selectedPage == 0
+              ? Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        Lottie.asset("assets/lotties/Home.json", height: 400.0),
+                        Text("Authenticated", style: TextStyle(fontSize: 40.0)),
+                        Text(
+                          "Home page is under development",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 40.0),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return WidgetTree();
+                                },
+                              ),
+                            );
+                          },
 
-                child: Text("Log out"),
-              ),
+                          child: Text("Log out"),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : ProfilePage();
+        },
+      ),
+      bottomNavigationBar: ValueListenableBuilder(
+        valueListenable: selectedPageNotifier,
+        builder: (BuildContext context, dynamic selectedPage, Widget? child) {
+          return NavigationBar(
+            destinations: [
+              NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+              NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
             ],
-          ),
-        ),
+            onDestinationSelected: (int value) {
+              setState(() {
+                selectedPageNotifier.value = value;
+              });
+            },
+            selectedIndex: selectedPage,
+          );
+        },
       ),
     );
   }

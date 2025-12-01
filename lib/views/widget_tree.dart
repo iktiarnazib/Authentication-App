@@ -1,15 +1,50 @@
+import 'package:authapp/app/mobile/auth_service.dart';
 import 'package:authapp/main.dart';
 import 'package:authapp/views/pages/home_page.dart';
+import 'package:authapp/views/pages/profile_page.dart';
 import 'package:authapp/views/pages/register_page.dart';
 import 'package:authapp/views/pages/reset_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class WidgetTree extends StatelessWidget {
+class WidgetTree extends StatefulWidget {
   WidgetTree({super.key});
 
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
+  @override
+  State<WidgetTree> createState() => _WidgetTreeState();
+}
+
+class _WidgetTreeState extends State<WidgetTree> {
+  TextEditingController controllerEmail = TextEditingController();
+
+  TextEditingController controllerPass = TextEditingController();
+
+  String errorMessage = '';
+
+  void SingIn() async {
+    try {
+      await authService.value.signIn(
+        email: controllerEmail.text,
+        password: controllerPass.text,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePage();
+          },
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message ?? "There is an error";
+      });
+    }
+  }
+
+  List<Widget> pageList = [HomePage(), ProfilePage()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +73,7 @@ class WidgetTree extends StatelessWidget {
               ),
               SizedBox(height: 20.0),
               TextField(
-                controller: controller,
+                controller: controllerEmail,
                 decoration: InputDecoration(
                   hintText: "Email",
                   hintStyle: TextStyle(color: Colors.white30),
@@ -50,7 +85,7 @@ class WidgetTree extends StatelessWidget {
               ),
               SizedBox(height: 20.0),
               TextField(
-                controller: controller1,
+                controller: controllerPass,
                 decoration: InputDecoration(
                   hintText: "Password",
                   hintStyle: TextStyle(color: Colors.white30),
@@ -59,17 +94,10 @@ class WidgetTree extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10.0),
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
               FilledButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomePage();
-                      },
-                    ),
-                  );
+                  SingIn();
                 },
                 style: FilledButton.styleFrom(
                   minimumSize: Size(double.infinity, 40.0),
