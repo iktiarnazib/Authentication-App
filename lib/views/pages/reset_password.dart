@@ -53,68 +53,70 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Password reset page",
-          style: TextStyle(fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Password reset page",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 300.0,
-              child: Lottie.asset("assets/lotties/ForgotPassword.json"),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              "Reset Password",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 300.0,
+                child: Lottie.asset("assets/lotties/ForgotPassword.json"),
               ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: controllerEmail,
-              decoration: InputDecoration(
-                hintText: "Email",
-                hintStyle: TextStyle(color: Colors.white30),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+              SizedBox(height: 20.0),
+              Text(
+                "Reset Password",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            Text(errorMessage, style: TextStyle(color: Colors.red)),
-            FilledButton(
-              onPressed: () {
-                resetPassword();
-              },
-
-              style: FilledButton.styleFrom(
-                minimumSize: Size(double.infinity, 40.0),
-              ),
-              child: Text("Reset Password"),
-            ),
-
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return WidgetTree();
-                    },
+              SizedBox(height: 20.0),
+              TextField(
+                controller: controllerEmail,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  hintStyle: TextStyle(color: Colors.white30),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                );
-              },
-              child: Text("Go back to Login page"),
-            ),
-          ],
+                ),
+              ),
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              FilledButton(
+                onPressed: () {
+                  resetPassword();
+                },
+
+                style: FilledButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40.0),
+                ),
+                child: Text("Reset Password"),
+              ),
+
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WidgetTree();
+                      },
+                    ),
+                  );
+                },
+                child: Text("Go back to Login page"),
+              ),
+            ],
+          ),
         ),
       ),
     );

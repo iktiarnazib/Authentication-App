@@ -39,76 +39,78 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Register your account",
-          style: TextStyle(fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Register your account",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset("assets/lotties/register.json", repeat: false),
-            Text(
-              "Register",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: rcontrollerEmail,
-              decoration: InputDecoration(
-                hintText: "Email",
-                hintStyle: TextStyle(color: Colors.white30),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset("assets/lotties/register.json", repeat: false),
+              Text(
+                "Register",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: rcontrollerPass,
-              decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: TextStyle(color: Colors.white30),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
+              SizedBox(height: 20.0),
+              TextField(
+                controller: rcontrollerEmail,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  hintStyle: TextStyle(color: Colors.white30),
 
-            Text(errorMessage, style: TextStyle(color: Colors.red)),
-            FilledButton(
-              onPressed: () {
-                register();
-              },
-              style: FilledButton.styleFrom(
-                minimumSize: Size(double.infinity, 40.0),
-              ),
-              child: Text("Register"),
-            ),
-
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return WidgetTree();
-                    },
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                );
-              },
-              child: Text("Already have an account? Login"),
-            ),
-          ],
+                ),
+              ),
+              SizedBox(height: 20.0),
+              TextField(
+                controller: rcontrollerPass,
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  hintStyle: TextStyle(color: Colors.white30),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+              ),
+
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              FilledButton(
+                onPressed: () {
+                  register();
+                },
+                style: FilledButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40.0),
+                ),
+                child: Text("Register"),
+              ),
+
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WidgetTree();
+                      },
+                    ),
+                  );
+                },
+                child: Text("Already have an account? Login"),
+              ),
+            ],
+          ),
         ),
       ),
     );
