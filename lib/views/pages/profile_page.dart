@@ -1,3 +1,5 @@
+import 'package:authapp/app/mobile/auth_service.dart';
+import 'package:authapp/views/pages/Delete_account.dart';
 import 'package:authapp/views/pages/change_pass.dart';
 import 'package:authapp/views/pages/update_username.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,29 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 50.0),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: Container(
+            height: 200.0,
+            width: double.infinity,
+            color: Colors.teal[800],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Welcome ',
+                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  authService.value.currentUser!.displayName ?? 'User',
+                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
         ListTile(
           onTap: () {
             Navigator.push(
@@ -44,7 +67,16 @@ class _ProfilePageState extends State<ProfilePage> {
           trailing: Icon(Icons.forward),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return DeleteAccount();
+                },
+              ),
+            );
+          },
           title: Text('Delete my account'),
           trailing: Icon(Icons.forward),
         ),

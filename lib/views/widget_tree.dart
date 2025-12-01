@@ -1,4 +1,5 @@
 import 'package:authapp/app/mobile/auth_service.dart';
+import 'package:authapp/data/notifiers.dart';
 import 'package:authapp/main.dart';
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/pages/profile_page.dart';
@@ -97,6 +98,7 @@ class _WidgetTreeState extends State<WidgetTree> {
               Text(errorMessage, style: TextStyle(color: Colors.red)),
               FilledButton(
                 onPressed: () {
+                  selectedPageNotifier.value = 0;
                   SingIn();
                 },
                 style: FilledButton.styleFrom(
