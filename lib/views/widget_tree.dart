@@ -109,7 +109,7 @@ class _WidgetTreeState extends State<WidgetTree> {
 
               OutlinedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {

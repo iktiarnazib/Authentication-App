@@ -2,6 +2,8 @@ import 'package:authapp/app/mobile/auth_service.dart';
 import 'package:authapp/views/pages/Delete_account.dart';
 import 'package:authapp/views/pages/change_pass.dart';
 import 'package:authapp/views/pages/update_username.dart';
+import 'package:authapp/views/widget_tree.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,6 +14,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String errorMessage = '';
+  void logOut() async {
+    try {
+      await authService.value.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return WidgetTree();
+          },
+        ),
+      );
+      errorMessage = '';
+    } on FirebaseAuthException catch (e) {
+      errorMessage = e.message ?? 'There was an error';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,6 +100,14 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Text('Delete my account'),
           trailing: Icon(Icons.forward),
         ),
+        ListTile(
+          onTap: () {
+            logOut();
+          },
+          title: Text('Log Out'),
+          trailing: Icon(Icons.forward),
+        ),
+        Text(errorMessage, style: TextStyle(color: Colors.red)),
       ],
     );
   }
