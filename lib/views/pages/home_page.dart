@@ -17,21 +17,6 @@ class _HomePageState extends State<HomePage> {
   int selectedPage = 0;
   String errorMessage = '';
   final user = authService.value.currentUser;
-  void logOut() async {
-    try {
-      await authService.value.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return WidgetTree();
-          },
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      errorMessage = e.message ?? 'There was an error';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +67,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         SizedBox(height: 5.0),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40.0),
-                          ),
-                          onPressed: () {
-                            logOut();
-                          },
-
-                          child: Text("Log out"),
-                        ),
-                        Text(errorMessage),
                       ],
                     ),
                   ),
