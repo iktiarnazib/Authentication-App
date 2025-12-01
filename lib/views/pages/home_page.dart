@@ -1,6 +1,8 @@
+import 'package:authapp/app/mobile/auth_service.dart';
 import 'package:authapp/data/notifiers.dart';
 import 'package:authapp/views/pages/profile_page.dart';
 import 'package:authapp/views/widget_tree.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,6 +15,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedPage = 0;
+  String errorMessage = '';
+  final user = authService.value.currentUser;
+  void logOut() async {
+    try {
+      await authService.value.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return WidgetTree();
+          },
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      errorMessage = e.message ?? 'There was an error';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +41,24 @@ class _HomePageState extends State<HomePage> {
           "Inside the app",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Row(
+            children: [
+              Text('Welcome:'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  color: Colors.teal,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(user?.email ?? "No user"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+        centerTitle: false,
         automaticallyImplyLeading: false,
       ),
       body: ValueListenableBuilder(
@@ -50,18 +87,12 @@ class _HomePageState extends State<HomePage> {
                             minimumSize: Size(double.infinity, 40.0),
                           ),
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return WidgetTree();
-                                },
-                              ),
-                            );
+                            logOut();
                           },
 
                           child: Text("Log out"),
                         ),
+                        Text(errorMessage),
                       ],
                     ),
                   ),
