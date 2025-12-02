@@ -38,42 +38,44 @@ class _UpdateUsernameState extends State<UpdateUsername> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Lottie.asset("assets/lotties/Username.json", repeat: false),
-            Text(
-              "Change Username",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            TextField(
-              controller: controllerUsername,
-              decoration: InputDecoration(
-                hintText: "Username",
-                hintStyle: TextStyle(color: Colors.white30),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Lottie.asset("assets/lotties/Username.json", repeat: false),
+              Text(
+                "Change Username",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            Text(errorMessage, style: TextStyle(color: Colors.red)),
-            FilledButton(
-              onPressed: () {
-                updateUser();
-              },
-              style: FilledButton.styleFrom(
-                minimumSize: Size(double.infinity, 40.0),
+              SizedBox(height: 10.0),
+              TextField(
+                controller: controllerUsername,
+                decoration: InputDecoration(
+                  hintText: "Username",
+                  hintStyle: TextStyle(color: Colors.white30),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
               ),
-              child: Text("Change Username"),
-            ),
-          ],
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              FilledButton(
+                onPressed: () {
+                  updateUser();
+                },
+                style: FilledButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40.0),
+                ),
+                child: Text("Change Username"),
+              ),
+            ],
+          ),
         ),
       ),
     );

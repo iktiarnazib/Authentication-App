@@ -53,23 +53,21 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Password reset page",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Password reset page",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: Padding(
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 300.0,
-                child: Lottie.asset("assets/lotties/ForgotPassword.json"),
-              ),
+              Lottie.asset("assets/lotties/ForgotPassword.json"),
+
               SizedBox(height: 20.0),
               Text(
                 "Reset Password",

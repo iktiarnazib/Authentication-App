@@ -39,15 +39,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Register your account",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Register your account",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: Padding(
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
