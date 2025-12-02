@@ -23,10 +23,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
-          child: Text(
-            "Inside the app",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          child: Text("Authapp", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         actions: [
           Row(
