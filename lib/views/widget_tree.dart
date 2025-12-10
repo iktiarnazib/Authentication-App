@@ -50,10 +50,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Authentication App",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text("Authapp", style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         leading: Icon(Icons.lock, color: Colors.white),
       ),
