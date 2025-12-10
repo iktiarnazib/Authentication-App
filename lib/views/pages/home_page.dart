@@ -120,113 +120,115 @@ class _HomePageState extends State<HomePage> {
         valueListenable: selectedPageNotifier,
         builder: (BuildContext context, dynamic selectedPage, Widget? child) {
           return selectedPage == 0
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            'This is how API works:',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+              ? SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'This is how API works:',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FutureBuilder<Activity>(
-                            future: futureActivity,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final data = snapshot.data!;
-                                return Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Card(
-                                    elevation: 20,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Data fetched from API:',
-                                            style: TextStyle(
-                                              color: Colors.amber,
-                                            ),
-                                          ),
-                                          Text(
-                                            data.activity,
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 12),
-
-                                          Text("Type: ${data.type}"),
-                                          Text(
-                                            "Participants: ${data.participants}",
-                                          ),
-                                          Text("Price: ${data.price}"),
-                                          Text(
-                                            "Availability: ${data.availability}",
-                                          ),
-                                          Text(
-                                            "Accessibility: ${data.accessibility}",
-                                          ),
-                                          Text("Duration: ${data.duration}"),
-                                          Text(
-                                            "Kid Friendly: ${data.kidFriendly}",
-                                          ),
-                                          Text("Key: ${data.key}"),
-
-                                          if (data.link.isNotEmpty) ...[
-                                            const SizedBox(height: 8),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FutureBuilder<Activity>(
+                              future: futureActivity,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final data = snapshot.data!;
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Card(
+                                      elevation: 20,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
                                             Text(
-                                              "Link: ${data.link}",
+                                              'Data fetched from API:',
+                                              style: TextStyle(
+                                                color: Colors.amber,
+                                              ),
+                                            ),
+                                            Text(
+                                              data.activity,
                                               style: const TextStyle(
-                                                color: Colors.blue,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 12),
+
+                                            Text("Type: ${data.type}"),
+                                            Text(
+                                              "Participants: ${data.participants}",
+                                            ),
+                                            Text("Price: ${data.price}"),
+                                            Text(
+                                              "Availability: ${data.availability}",
+                                            ),
+                                            Text(
+                                              "Accessibility: ${data.accessibility}",
+                                            ),
+                                            Text("Duration: ${data.duration}"),
+                                            Text(
+                                              "Kid Friendly: ${data.kidFriendly}",
+                                            ),
+                                            Text("Key: ${data.key}"),
+
+                                            if (data.link.isNotEmpty) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                "Link: ${data.link}",
+                                                style: const TextStyle(
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ],
+
+                                            const SizedBox(height: 16),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: OutlinedButton.icon(
+                                                label: Text(
+                                                  'Get Another Activity',
+                                                ),
+                                                onPressed: _refreshActivity,
+                                                icon: Icon(Icons.casino),
                                               ),
                                             ),
                                           ],
-
-                                          const SizedBox(height: 16),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: OutlinedButton.icon(
-                                              label: Text(
-                                                'Get Another Activity',
-                                              ),
-                                              onPressed: _refreshActivity,
-                                              icon: Icon(Icons.casino),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }
+                                  );
+                                }
 
-                              if (snapshot.hasError) {
-                                return Text("Error: ${snapshot.error}");
-                              }
+                                if (snapshot.hasError) {
+                                  return Text("Error: ${snapshot.error}");
+                                }
 
-                              return const CircularProgressIndicator();
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                                return const CircularProgressIndicator();
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 )
               : ProfilePage();
