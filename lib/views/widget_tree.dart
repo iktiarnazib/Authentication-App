@@ -10,16 +10,20 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class WidgetTree extends StatefulWidget {
-  WidgetTree({super.key});
+  const WidgetTree({super.key});
 
   @override
   State<WidgetTree> createState() => _WidgetTreeState();
 }
 
 class _WidgetTreeState extends State<WidgetTree> {
-  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController(
+    text: 'iktiarnazib@gmail.com',
+  );
 
-  TextEditingController controllerPass = TextEditingController();
+  TextEditingController controllerPass = TextEditingController(
+    text: '90861651',
+  );
 
   String errorMessage = '';
 
@@ -28,14 +32,6 @@ class _WidgetTreeState extends State<WidgetTree> {
       await authService.value.signIn(
         email: controllerEmail.text,
         password: controllerPass.text,
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return HomePage();
-          },
-        ),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {

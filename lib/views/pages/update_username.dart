@@ -1,4 +1,6 @@
 import 'package:authapp/app/mobile/auth_service.dart';
+import 'package:authapp/data/constants.dart';
+import 'package:authapp/views/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -16,11 +18,22 @@ class _UpdateUsernameState extends State<UpdateUsername> {
   void updateUser() async {
     try {
       await authService.value.updateUsername(username: controllerUsername.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text("Updated username"),
-        ),
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('username updated!'),
+            content: Text('Your username has been updated!'),
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
       );
     } on FirebaseAuthException catch (e) {
       setState(() {

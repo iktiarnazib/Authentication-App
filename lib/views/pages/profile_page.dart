@@ -18,14 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void logOut() async {
     try {
       await authService.value.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return WidgetTree();
-          },
-        ),
-      );
+
       errorMessage = '';
     } on FirebaseAuthException catch (e) {
       errorMessage = e.message ?? 'There was an error';
@@ -66,8 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           ListTile(
-            onTap: () {
-              Navigator.push(
+            onTap: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
@@ -75,6 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               );
+              setState(() {});
             },
             title: Text('Update Username'),
             trailing: Icon(Icons.forward),
