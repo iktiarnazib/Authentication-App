@@ -1,4 +1,6 @@
 import 'package:authapp/app/mobile/auth_service.dart';
+import 'package:authapp/data/constants.dart';
+import 'package:authapp/data/notifiers.dart';
 import 'package:authapp/views/pages/home_page.dart';
 import 'package:authapp/views/widget_tree.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
           },
         ),
       );
+      selectedPageNotifier.value = 0;
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message ?? "There is an error";

@@ -1,4 +1,4 @@
-import 'package:authapp/views/widget_tree.dart';
+import 'package:authapp/app/mobile/auth_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: WidgetTree(),
+      home: const AuthWrapper(),
     );
   }
 }
